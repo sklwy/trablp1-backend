@@ -1,7 +1,6 @@
 package com.heroku.ifeslp1backend.model;
 
 import com.heroku.ifeslp1backend.enumerator.EComStatus;
-import com.heroku.ifeslp1backend.enumerator.EPedStatus;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -11,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +31,8 @@ public class Comandas {
     private Long mesCod;
 
     @ElementCollection
+    @OneToMany
+    @JoinColumn(name = "PED_COD")
     private List<Pedidos> comPedidos;
 
     @Column(name = "COM_VALOR_TOTAL")
@@ -53,16 +56,6 @@ public class Comandas {
     public Comandas(Long comCod, Long mesCod, double comValorTotal, Date comDtaIni, Date comDtaFini, EComStatus comStatus) {
         this.comCod = comCod;
         this.mesCod = mesCod;
-        this.comValorTotal = comValorTotal;
-        this.comDtaIni = comDtaIni;
-        this.comDtaFini = comDtaFini;
-        this.comStatus = comStatus;
-    }
-
-    public Comandas(Long comCod, Long mesCod, List<Pedidos> comPedidos, double comValorTotal, Date comDtaIni, Date comDtaFini, EComStatus comStatus) {
-        this.comCod = comCod;
-        this.mesCod = mesCod;
-        this.comPedidos = comPedidos;
         this.comValorTotal = comValorTotal;
         this.comDtaIni = comDtaIni;
         this.comDtaFini = comDtaFini;

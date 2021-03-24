@@ -27,12 +27,13 @@ public class PedidosService {
     @Transactional(rollbackFor = Exception.class)
     public Pedidos insert(@Validated Pedidos pedidos) {
         if (pedidos.getComCod() == null) {
-            Comandas comPedidos = new Comandas();
-            pedidos.setComCod(comPedidos.getComCod());
-            comandasRepository.save(comPedidos);
+            Comandas novaComanda = new Comandas();
+            comandasRepository.save(novaComanda);
+
+            pedidos.setComCod(novaComanda.getComCod());
         } else {
             Optional<Comandas> comandas = comandasRepository.findById(pedidos.getComCod());
-            pedidos.setComCod(comandas.get().getComCod());
+            comandas.ifPresent(value -> pedidos.setComCod(value.getComCod()));
         }
         pedidos.setPedStatus(EPedStatus.ATIVO);
         return pedidosRepository.save(pedidos);
