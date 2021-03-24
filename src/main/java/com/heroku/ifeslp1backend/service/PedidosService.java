@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PedidosService {
@@ -29,11 +26,20 @@ public class PedidosService {
         if (pedidos.getComCod() == null) {
             Comandas novaComanda = new Comandas();
             comandasRepository.save(novaComanda);
-
             pedidos.setComCod(novaComanda.getComCod());
+            novaComanda.setComPedidos(Collections.singletonList(pedidos));
         } else {
             Optional<Comandas> comandas = comandasRepository.findById(pedidos.getComCod());
-            comandas.ifPresent(value -> pedidos.setComCod(value.getComCod()));
+            List<Pedidos> listaPedidos = comandas.get().getComPedidos();
+            Iterator<Pedidos> pedidosIterator = listaPedidos.iterator();
+            List<Pedidos> listaPedidosIterada = new ArrayList<>();
+            pedidosRepository.save(pedidos);
+            listaPedidosIterada.add(pedidos);
+            while (pedidosIterator.hasNext()) {
+                Pedidos iterator = pedidosIterator.next();
+                listaPedidosIterada.add(iterator);
+            }
+            comandas.get().setComPedidos(listaPedidosIterada);
         }
         pedidos.setPedStatus(EPedStatus.ATIVO);
         return pedidosRepository.save(pedidos);

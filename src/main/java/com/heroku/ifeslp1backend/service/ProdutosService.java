@@ -1,6 +1,5 @@
 package com.heroku.ifeslp1backend.service;
 
-import com.heroku.ifeslp1backend.model.Pedidos;
 import com.heroku.ifeslp1backend.model.Produtos;
 import com.heroku.ifeslp1backend.repository.ProdutosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,6 @@ public class ProdutosService {
 
     @Transactional(rollbackFor = Exception.class)
     public Optional<Produtos> findById(Long proCod) {
-        return  produtosRepository.findById(proCod);
+        return produtosRepository.findById(proCod);
     }
 }
