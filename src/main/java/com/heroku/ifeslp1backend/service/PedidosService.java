@@ -65,4 +65,10 @@ public class PedidosService {
     public Optional<Pedidos> findById(Long pedCod) {
         return pedidosRepository.findById(pedCod);
     }
+
+    public void update(@Validated Pedidos pedidos) {
+        Optional<Pedidos> registro = pedidosRepository.findById(pedidos.getPedCod());
+        Pedidos pedido = registro.get();
+        this.pedidosRepository.save(pedido);
+    }
 }
