@@ -28,7 +28,7 @@ public class PedidosController {
         return new ResponseEntity<>(pedidosService.insert(pedidos), HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/{pedCod}}")
+    @GetMapping(path = "/{pedCod}")
     public ResponseEntity<Optional<Pedidos>> findById(@PathVariable Long pedCod) {
         return ResponseEntity.ok(pedidosService.findById(pedCod));
     }
