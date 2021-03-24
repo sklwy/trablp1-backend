@@ -1,5 +1,6 @@
 package com.heroku.ifeslp1backend.service;
 
+import com.heroku.ifeslp1backend.model.Pedidos;
 import com.heroku.ifeslp1backend.model.Produtos;
 import com.heroku.ifeslp1backend.repository.ProdutosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProdutosService {
@@ -32,5 +34,10 @@ public class ProdutosService {
             listaProdutosIterada.add(iterator);
         }
         return listaProdutosIterada;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Optional<Produtos> findById(Long proCod) {
+        return  produtosRepository.findById(proCod);
     }
 }
