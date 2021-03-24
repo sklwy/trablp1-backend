@@ -23,7 +23,7 @@ public class ComandasController {
     private ComandasService comandasService;
 
     @GetMapping(path = "/list")
-    public ResponseEntity<List<Comandas>> listMesas() {
+    public ResponseEntity<List<Comandas>> listComandas() {
         return ResponseEntity.ok(comandasService.findList());
     }
 

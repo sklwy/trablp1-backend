@@ -5,14 +5,10 @@ import com.heroku.ifeslp1backend.service.PedidosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -30,5 +26,10 @@ public class PedidosController {
     @PostMapping(path = "/")
     public ResponseEntity<Pedidos> insert(@RequestBody Pedidos pedidos) {
         return new ResponseEntity<>(pedidosService.insert(pedidos), HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/{pedCod}}")
+    public ResponseEntity<Optional<Pedidos>> findById(@PathVariable Long pedCod) {
+        return ResponseEntity.ok(pedidosService.findById(pedCod));
     }
 }

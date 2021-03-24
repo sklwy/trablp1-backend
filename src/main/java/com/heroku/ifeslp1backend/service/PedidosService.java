@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PedidosService {
@@ -32,5 +33,10 @@ public class PedidosService {
             listaPedidosIterada.add(iterator);
         }
         return listaPedidosIterada;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Optional<Pedidos> findById(Long pedCod) {
+        return  pedidosRepository.findById(pedCod);
     }
 }
