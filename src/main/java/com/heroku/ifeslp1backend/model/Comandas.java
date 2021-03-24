@@ -44,7 +44,7 @@ public class Comandas {
     private Date comDtaFini;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "COM_STATUS")
+    @Column(name = "COM_STATUS", length = 15)
     private EComStatus comStatus;
 
     public Comandas() {
