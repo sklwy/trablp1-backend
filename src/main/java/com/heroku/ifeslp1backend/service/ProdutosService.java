@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProdutosService {
@@ -38,5 +35,10 @@ public class ProdutosService {
     @Transactional(rollbackFor = Exception.class)
     public Optional<Produtos> findById(Long proCod) {
         return produtosRepository.findById(proCod);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(Long proCod) {
+        produtosRepository.delete(Objects.requireNonNull(findById(proCod).orElse(null)));
     }
 }
