@@ -1,4 +1,4 @@
-package com.heroku.ifeslp1backend.config;
+package com.heroku.ifeslp1backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
