@@ -1,5 +1,6 @@
 package com.heroku.ifeslp1backend.model;
 
+import com.heroku.ifeslp1backend.enumerator.EComStatus;
 import com.heroku.ifeslp1backend.enumerator.EPedStatus;
 
 import javax.persistence.Column;
@@ -25,6 +26,9 @@ public class Comandas {
     @Column(name = "COM_COD", length = 10, nullable = false)
     private Long comCod;
 
+    @Column(name = "MES_COD", length = 10)
+    private Long mesCod;
+
     @ElementCollection
     private List<Pedidos> comPedidos;
 
@@ -41,21 +45,23 @@ public class Comandas {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "COM_STATUS")
-    private EPedStatus comStatus;
+    private EComStatus comStatus;
 
     public Comandas() {
     }
 
-    public Comandas(Long comCod, double comValorTotal, Date comDtaIni, Date comDtaFini, EPedStatus comStatus) {
+    public Comandas(Long comCod, Long mesCod, double comValorTotal, Date comDtaIni, Date comDtaFini, EComStatus comStatus) {
         this.comCod = comCod;
+        this.mesCod = mesCod;
         this.comValorTotal = comValorTotal;
         this.comDtaIni = comDtaIni;
         this.comDtaFini = comDtaFini;
         this.comStatus = comStatus;
     }
 
-    public Comandas(Long comCod, List<Pedidos> comPedidos, double comValorTotal, Date comDtaIni, Date comDtaFini, EPedStatus comStatus) {
+    public Comandas(Long comCod, Long mesCod, List<Pedidos> comPedidos, double comValorTotal, Date comDtaIni, Date comDtaFini, EComStatus comStatus) {
         this.comCod = comCod;
+        this.mesCod = mesCod;
         this.comPedidos = comPedidos;
         this.comValorTotal = comValorTotal;
         this.comDtaIni = comDtaIni;
@@ -69,6 +75,14 @@ public class Comandas {
 
     public void setComCod(Long comCod) {
         this.comCod = comCod;
+    }
+
+    public Long getMesCod() {
+        return mesCod;
+    }
+
+    public void setMesCod(Long mesCod) {
+        this.mesCod = mesCod;
     }
 
     public List<Pedidos> getComPedidos() {
@@ -103,11 +117,11 @@ public class Comandas {
         this.comDtaFini = comDtaFini;
     }
 
-    public EPedStatus getComStatus() {
+    public EComStatus getComStatus() {
         return comStatus;
     }
 
-    public void setComStatus(EPedStatus comStatus) {
+    public void setComStatus(EComStatus comStatus) {
         this.comStatus = comStatus;
     }
 }

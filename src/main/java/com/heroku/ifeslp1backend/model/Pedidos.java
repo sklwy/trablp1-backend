@@ -20,9 +20,6 @@ public class Pedidos {
     @Column(name = "PED_COD", length = 10, nullable = false)
     private Long pesCod;
 
-    @Column(name = "MES_COD", length = 10)
-    private Long mesCod;
-
     @Column(name = "COM_COD", length = 10)
     private Long comCod;
 
@@ -39,9 +36,8 @@ public class Pedidos {
     public Pedidos() {
     }
 
-    public Pedidos(Long pesCod, Long mesCod, Long comCod, Long proCod, EPedStatus pedStatus, double pedVlrTotal) {
+    public Pedidos(Long pesCod, Long comCod, Long proCod, EPedStatus pedStatus, double pedVlrTotal) {
         this.pesCod = pesCod;
-        this.mesCod = mesCod;
         this.comCod = comCod;
         this.proCod = proCod;
         this.pedStatus = pedStatus;
@@ -54,14 +50,6 @@ public class Pedidos {
 
     public void setPesCod(Long pesCod) {
         this.pesCod = pesCod;
-    }
-
-    public Long getMesCod() {
-        return mesCod;
-    }
-
-    public void setMesCod(Long mesCod) {
-        this.mesCod = mesCod;
     }
 
     public Long getComCod() {
