@@ -18,7 +18,7 @@ public class Pedidos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PED_COD", length = 10, nullable = false)
-    private Long pesCod;
+    private Long pedCod;
 
     @Column(name = "COM_COD", length = 10)
     private Long comCod;
@@ -36,20 +36,20 @@ public class Pedidos {
     public Pedidos() {
     }
 
-    public Pedidos(Long pesCod, Long comCod, Long proCod, EPedStatus pedStatus, double pedVlrTotal) {
-        this.pesCod = pesCod;
+    public Pedidos(Long pedCod, Long comCod, Long proCod, EPedStatus pedStatus, double pedVlrTotal) {
+        this.pedCod = pedCod;
         this.comCod = comCod;
         this.proCod = proCod;
         this.pedStatus = pedStatus;
         this.pedVlrTotal = pedVlrTotal;
     }
 
-    public Long getPesCod() {
-        return pesCod;
+    public Long getPedCod() {
+        return pedCod;
     }
 
-    public void setPesCod(Long pesCod) {
-        this.pesCod = pesCod;
+    public void setPedCod(Long pedCod) {
+        this.pedCod = pedCod;
     }
 
     public Long getComCod() {
