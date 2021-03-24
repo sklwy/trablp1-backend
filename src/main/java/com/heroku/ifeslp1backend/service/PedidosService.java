@@ -29,6 +29,7 @@ public class PedidosService {
         if (pedidos.getComCod() == null) {
             Comandas comPedidos = new Comandas();
             pedidos.setComCod(comPedidos.getComCod());
+            comandasRepository.save(comPedidos);
         } else {
             Optional<Comandas> comandas = comandasRepository.findById(pedidos.getComCod());
             pedidos.setComCod(comandas.get().getComCod());
