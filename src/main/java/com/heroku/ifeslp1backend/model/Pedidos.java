@@ -33,15 +33,19 @@ public class Pedidos {
     @Column(name = "PED_VLR_TOTAL")
     private double pedVlrTotal;
 
+    @Column(name = "PED_MEM_OBS")
+    private String pedMemObs;
+
     public Pedidos() {
     }
 
-    public Pedidos(Long pedCod, Long comCod, Long proCod, EPedStatus pedStatus, double pedVlrTotal) {
+    public Pedidos(Long pedCod, Long comCod, Long proCod, EPedStatus pedStatus, double pedVlrTotal, String pedMemObs) {
         this.pedCod = pedCod;
         this.comCod = comCod;
         this.proCod = proCod;
         this.pedStatus = pedStatus;
         this.pedVlrTotal = pedVlrTotal;
+        this.pedMemObs = pedMemObs;
     }
 
     public Long getPedCod() {
@@ -82,5 +86,13 @@ public class Pedidos {
 
     public void setPedVlrTotal(double pedVlrTotal) {
         this.pedVlrTotal = pedVlrTotal;
+    }
+
+    public String getPedMemObs() {
+        return pedMemObs;
+    }
+
+    public void setPedMemObs(String pedMemObs) {
+        this.pedMemObs = pedMemObs;
     }
 }
