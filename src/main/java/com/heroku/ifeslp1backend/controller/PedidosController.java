@@ -41,25 +41,26 @@ public class PedidosController {
         return ResponseEntity.ok(pedidosService.findById(pedCod));
     }
 
-    @PutMapping(path = "/cancelar")
-    public ResponseEntity<Object> cancelarPedido(@RequestBody Pedidos pedidos) {
-        Optional<Pedidos> registro = pedidosService.findById(pedidos.getPedCod());
+    @PutMapping(path = "/{pedCod}/cancelar")
+    public ResponseEntity<Void> cancelarPedido(@PathVariable Long pedCod, @RequestBody Pedidos pedidoCan) {
+        Optional<Pedidos> registro = pedidosService.findById(pedCod);
+        pedidoCan.setPedCod(pedCod);
         if (registro.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        pedidos.setPedStatus(EPedStatus.CANCELADO);
-        pedidosService.update(pedidos);
+        pedidoCan.setPedStatus(EPedStatus.CANCELADO);
+        pedidosService.updateCancelado(pedCod, pedidoCan);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/finalizar")
-    public ResponseEntity<Object> finalizarPedido(@RequestBody Pedidos pedidos) {
-        Optional<Pedidos> registro = pedidosService.findById(pedidos.getPedCod());
+    @PutMapping(path = "/{pedCod}/finalizar")
+    public ResponseEntity<Void> finalizarPedido(@PathVariable Long pedCod, @RequestBody Pedidos pedidoFin) {
+        Optional<Pedidos> registro = pedidosService.findById(pedidoFin.getPedCod());
         if (registro.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        pedidos.setPedStatus(EPedStatus.FINALIZADO);
-        pedidosService.insert(pedidos);
+        pedidoFin.setPedStatus(EPedStatus.FINALIZADO);
+        pedidosService.insert(pedidoFin);
         return ResponseEntity.noContent().build();
     }
 }
