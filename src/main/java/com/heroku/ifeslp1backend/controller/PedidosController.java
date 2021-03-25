@@ -1,6 +1,5 @@
 package com.heroku.ifeslp1backend.controller;
 
-import com.heroku.ifeslp1backend.enumerator.EPedStatus;
 import com.heroku.ifeslp1backend.model.Pedidos;
 import com.heroku.ifeslp1backend.service.PedidosService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,25 +41,23 @@ public class PedidosController {
     }
 
     @PutMapping(path = "/{pedCod}/cancelar")
-    public ResponseEntity<Void> cancelarPedido(@PathVariable Long pedCod, @RequestBody Pedidos pedidoCan) {
+    public ResponseEntity<Void> cancelarPedido(@PathVariable Long pedCod, Pedidos pedidoCan) {
         Optional<Pedidos> registro = pedidosService.findById(pedCod);
         pedidoCan.setPedCod(pedCod);
         if (registro.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        pedidoCan.setPedStatus(EPedStatus.CANCELADO);
         pedidosService.updateCancelado(pedCod, pedidoCan);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(path = "/{pedCod}/finalizar")
-    public ResponseEntity<Void> finalizarPedido(@PathVariable Long pedCod, @RequestBody Pedidos pedidoFin) {
-        Optional<Pedidos> registro = pedidosService.findById(pedidoFin.getPedCod());
+    public ResponseEntity<Void> finalizarPedido(@PathVariable Long pedCod, Pedidos pedidoFin) {
+        Optional<Pedidos> registro = pedidosService.findById(pedCod);
         if (registro.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        pedidoFin.setPedStatus(EPedStatus.FINALIZADO);
-        pedidosService.insert(pedidoFin);
+        pedidosService.updateFinalizado(pedCod, pedidoFin);
         return ResponseEntity.noContent().build();
     }
 }
