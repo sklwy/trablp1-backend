@@ -10,11 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PedidosService {
@@ -66,9 +62,23 @@ public class PedidosService {
         return pedidosRepository.findById(pedCod);
     }
 
-    public void update(@Validated Pedidos pedidos) {
+    @Transactional(rollbackFor = Exception.class)
+    public void updateCancelado(Long pedCod, @Validated Pedidos pedidos) {
         Optional<Pedidos> registro = pedidosRepository.findById(pedidos.getPedCod());
-        Pedidos pedido = registro.get();
-        this.pedidosRepository.save(pedido);
+        if (registro.isPresent()) {
+            Pedidos pedido = registro.get();
+            pedido.setPedStatus(EPedStatus.CANCELADO);
+            this.pedidosRepository.save(pedido);
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void updateFinalizado(Long pedCod, @Validated Pedidos pedidos) {
+        Optional<Pedidos> registro = pedidosRepository.findById(pedidos.getPedCod());
+        if (registro.isPresent()) {
+            Pedidos pedido = registro.get();
+            pedido.setPedStatus(EPedStatus.FINALIZADO);
+            this.pedidosRepository.save(pedido);
+        }
     }
 }
