@@ -24,6 +24,7 @@ public class MesaService {
 
     @Transactional(rollbackFor = Exception.class)
     public List<Mesa> findList() {
+        //Iteração de mesas
         List<Mesa> listaMesas = mesaRepository.findAll();
         Iterator<Mesa> mesasIterator = listaMesas.iterator();
         List<Mesa> listaMesasIterada = new ArrayList<>();

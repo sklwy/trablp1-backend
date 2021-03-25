@@ -26,6 +26,7 @@ public class ProdutosService {
 
     @Transactional(rollbackFor = Exception.class)
     public List<Produtos> findList() {
+        //Iteração de produtos
         List<Produtos> listaProdutos = produtosRepository.findAll();
         Iterator<Produtos> produtosIterator = listaProdutos.iterator();
         List<Produtos> listaProdutosIterada = new ArrayList<>();

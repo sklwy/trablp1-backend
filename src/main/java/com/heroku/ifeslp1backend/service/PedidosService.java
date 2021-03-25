@@ -10,7 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PedidosService {
@@ -23,12 +27,14 @@ public class PedidosService {
 
     @Transactional(rollbackFor = Exception.class)
     public Pedidos insert(@Validated Pedidos pedidos) {
+        // Validação para criação de comandas
         if (pedidos.getComCod() == null) {
             Comandas novaComanda = new Comandas();
             comandasRepository.save(novaComanda);
             pedidos.setComCod(novaComanda.getComCod());
             novaComanda.setComPedidos(Collections.singletonList(pedidos));
         } else {
+            // Iteração de pedidos
             Optional<Comandas> comandas = comandasRepository.findById(pedidos.getComCod());
             List<Pedidos> listaPedidos = comandas.get().getComPedidos();
             Iterator<Pedidos> pedidosIterator = listaPedidos.iterator();
@@ -47,6 +53,7 @@ public class PedidosService {
 
     @Transactional(rollbackFor = Exception.class)
     public List<Pedidos> findList() {
+        //Iteração de todos os itens da lista
         List<Pedidos> listaPedidos = pedidosRepository.findAll();
         Iterator<Pedidos> pedidosIterator = listaPedidos.iterator();
         List<Pedidos> listaPedidosIterada = new ArrayList<>();
@@ -64,6 +71,7 @@ public class PedidosService {
 
     @Transactional(rollbackFor = Exception.class)
     public void updateCancelado(Long pedCod, @Validated Pedidos pedidos) {
+        //Procura pelo chave primaria, se existir ele faz o set pra cancelado
         Optional<Pedidos> registro = pedidosRepository.findById(pedidos.getPedCod());
         if (registro.isPresent()) {
             Pedidos pedido = registro.get();
@@ -75,14 +83,15 @@ public class PedidosService {
 
     @Transactional(rollbackFor = Exception.class)
     public void updateFinalizado(Long pedCod, @Validated Pedidos pedidos) {
+        //Procura pelo chave primaria, se existir ele faz o set pra finalizado
         Optional<Pedidos> registro = pedidosRepository.findById(pedidos.getPedCod());
         if (registro.isPresent()) {
             Pedidos pedido = registro.get();
+            //Se o registro estiver cancelado não faz nada
             if (pedido.getPedStatus().equals(EPedStatus.CANCELADO)) {
             } else {
                 pedido.setPedStatus(EPedStatus.FINALIZADO);
                 this.pedidosRepository.save(pedido);
-
             }
         }
     }

@@ -24,6 +24,7 @@ public class ComandasService {
 
     @Transactional(rollbackFor = Exception.class)
     public List<Comandas> findList() {
+        //Iteração de comandas
         List<Comandas> listaComandas = comandasRepository.findAll();
         Iterator<Comandas> comandasIterator = listaComandas.iterator();
         List<Comandas> listaMesasIterada = new ArrayList<>();
