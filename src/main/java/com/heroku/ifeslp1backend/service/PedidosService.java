@@ -10,11 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PedidosService {
@@ -72,6 +68,7 @@ public class PedidosService {
         if (registro.isPresent()) {
             Pedidos pedido = registro.get();
             pedido.setPedStatus(EPedStatus.CANCELADO);
+            pedido.setPedIsCancelado(true);
             this.pedidosRepository.save(pedido);
         }
     }

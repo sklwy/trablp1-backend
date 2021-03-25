@@ -36,16 +36,20 @@ public class Pedidos {
     @Column(name = "PED_MEM_OBS")
     private String pedMemObs;
 
+    @Column(name = "PED_IS_CANCELADO")
+    private boolean pedIsCancelado;
+
     public Pedidos() {
     }
 
-    public Pedidos(Long pedCod, Long comCod, Long proCod, EPedStatus pedStatus, double pedVlrTotal, String pedMemObs) {
+    public Pedidos(Long pedCod, Long comCod, Long proCod, EPedStatus pedStatus, double pedVlrTotal, String pedMemObs, boolean pedIsCancelado) {
         this.pedCod = pedCod;
         this.comCod = comCod;
         this.proCod = proCod;
         this.pedStatus = pedStatus;
         this.pedVlrTotal = pedVlrTotal;
         this.pedMemObs = pedMemObs;
+        this.pedIsCancelado = pedIsCancelado;
     }
 
     public Long getPedCod() {
@@ -94,5 +98,13 @@ public class Pedidos {
 
     public void setPedMemObs(String pedMemObs) {
         this.pedMemObs = pedMemObs;
+    }
+
+    public boolean isPedIsCancelado() {
+        return pedIsCancelado;
+    }
+
+    public void setPedIsCancelado(boolean pedIsCancelado) {
+        this.pedIsCancelado = pedIsCancelado;
     }
 }
