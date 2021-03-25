@@ -78,8 +78,12 @@ public class PedidosService {
         Optional<Pedidos> registro = pedidosRepository.findById(pedidos.getPedCod());
         if (registro.isPresent()) {
             Pedidos pedido = registro.get();
-            pedido.setPedStatus(EPedStatus.FINALIZADO);
-            this.pedidosRepository.save(pedido);
+            if (pedido.getPedStatus().equals(EPedStatus.CANCELADO)
+                    || pedido.getPedStatus().equals(EPedStatus.ATIVO)) {
+            } else {
+                pedido.setPedStatus(EPedStatus.FINALIZADO);
+                this.pedidosRepository.save(pedido);
+            }
         }
     }
 }
