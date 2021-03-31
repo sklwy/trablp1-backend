@@ -3,6 +3,7 @@ package com.heroku.ifeslp1backend.model;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,7 +26,7 @@ public class Pedido {
 	@Column(name = "COD_COMANDA", length = 10)
 	private Long codComanda;
 
-	@Column(length = 10)
+	@ElementCollection
 	private List<Produto> produtos;
 
 	@Enumerated(EnumType.STRING)
