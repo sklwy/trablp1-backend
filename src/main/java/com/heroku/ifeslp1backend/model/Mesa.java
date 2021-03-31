@@ -8,38 +8,35 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GER_MESAS")
+@Table(name = "GER_MESA")
 public class Mesa {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MES_COD", length = 10, nullable = false)
-    private Long mesCod;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "COD_MESA", length = 10, nullable = false)
+	private Long codMesa;
 
-    @Column(name = "MES_ESP_COD", length = 5, nullable = false)
-    private String mesEspCod;
+	@Column(name = "NOME", length = 5, nullable = false)
+	private String nome;
 
-    public Mesa() {
-    }
+	public Mesa(Long codMesa, String nome) {
+		this.codMesa = codMesa;
+		this.nome = nome;
+	}
 
-    public Mesa(Long mesCod, String mesEspCod) {
-        this.mesCod = mesCod;
-        this.mesEspCod = mesEspCod;
-    }
+	public Long getCodMesa() {
+		return codMesa;
+	}
 
-    public Long getMesCod() {
-        return mesCod;
-    }
+	public void setCodMesa(Long codMesa) {
+		this.codMesa = codMesa;
+	}
 
-    public void setMesCod(Long mesCod) {
-        this.mesCod = mesCod;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getMesEspCod() {
-        return mesEspCod;
-    }
-
-    public void setMesEspCod(String mesEspCod) {
-        this.mesEspCod = mesEspCod;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 }

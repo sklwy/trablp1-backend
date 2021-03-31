@@ -1,6 +1,6 @@
 package com.heroku.ifeslp1backend.controller;
 
-import com.heroku.ifeslp1backend.model.Pedidos;
+import com.heroku.ifeslp1backend.model.Pedido;
 import com.heroku.ifeslp1backend.service.PedidosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,38 +26,38 @@ public class PedidosController {
     private PedidosService pedidosService;
 
     @GetMapping(path = "/list")
-    public ResponseEntity<List<Pedidos>> listPedidos() {
+    public ResponseEntity<List<Pedido>> listPedidos() {
         return ResponseEntity.ok(pedidosService.findList());
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<Pedidos> insert(@RequestBody Pedidos pedidos) {
-        return new ResponseEntity<>(pedidosService.insert(pedidos), HttpStatus.CREATED);
+    public ResponseEntity<Pedido> insert(@RequestBody Pedido pedido) {
+        return new ResponseEntity<>(pedidosService.insert(pedido), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/{pedCod}")
-    public ResponseEntity<Optional<Pedidos>> findById(@PathVariable Long pedCod) {
-        return ResponseEntity.ok(pedidosService.findById(pedCod));
+    public ResponseEntity<Optional<Pedido>> findById(@PathVariable Long codPedido) {
+        return ResponseEntity.ok(pedidosService.findById(codPedido));
     }
 
     @PutMapping(path = "/{pedCod}/cancelar")
-    public ResponseEntity<Void> cancelarPedido(@PathVariable Long pedCod, Pedidos pedidoCan) {
-        Optional<Pedidos> registro = pedidosService.findById(pedCod);
-        pedidoCan.setPedCod(pedCod);
+    public ResponseEntity<Void> cancelarPedido(@PathVariable Long codPedido, Pedido pedidoCan) {
+        Optional<Pedido> registro = pedidosService.findById(codPedido);
+        pedidoCan.setCodPedido(codPedido);
         if (registro.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        pedidosService.updateCancelado(pedCod, pedidoCan);
+        pedidosService.updateCancelado(codPedido, pedidoCan);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping(path = "/{pedCod}/finalizar")
-    public ResponseEntity<Void> finalizarPedido(@PathVariable Long pedCod, Pedidos pedidoFin) {
-        Optional<Pedidos> registro = pedidosService.findById(pedCod);
+    public ResponseEntity<Void> finalizarPedido(@PathVariable Long codPedido, Pedido pedidoFin) {
+        Optional<Pedido> registro = pedidosService.findById(codPedido);
         if (registro.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        pedidosService.updateFinalizado(pedCod, pedidoFin);
+        pedidosService.updateFinalizado(codPedido, pedidoFin);
         return ResponseEntity.noContent().build();
     }
 }

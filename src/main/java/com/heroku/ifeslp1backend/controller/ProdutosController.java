@@ -1,6 +1,6 @@
 package com.heroku.ifeslp1backend.controller;
 
-import com.heroku.ifeslp1backend.model.Produtos;
+import com.heroku.ifeslp1backend.model.Produto;
 import com.heroku.ifeslp1backend.service.ProdutosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,17 +26,17 @@ public class ProdutosController {
     private ProdutosService produtosService;
 
     @GetMapping(path = "/list")
-    public ResponseEntity<List<Produtos>> listProdutos() {
+    public ResponseEntity<List<Produto>> listProdutos() {
         return ResponseEntity.ok(produtosService.findList());
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<Produtos> insert(@RequestBody Produtos produtos) {
+    public ResponseEntity<Produto> insert(@RequestBody Produto produtos) {
         return new ResponseEntity<>(produtosService.insert(produtos), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/{proCod}")
-    public ResponseEntity<Optional<Produtos>> findById(@PathVariable Long proCod) {
+    public ResponseEntity<Optional<Produto>> findById(@PathVariable Long proCod) {
         return ResponseEntity.ok(produtosService.findById(proCod));
     }
 
