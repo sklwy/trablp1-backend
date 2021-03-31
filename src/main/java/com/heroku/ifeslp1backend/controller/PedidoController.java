@@ -1,7 +1,7 @@
 package com.heroku.ifeslp1backend.controller;
 
 import com.heroku.ifeslp1backend.model.Pedido;
-import com.heroku.ifeslp1backend.service.PedidosService;
+import com.heroku.ifeslp1backend.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +20,10 @@ import java.util.Optional;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/pedidos")
-public class PedidosController {
+public class PedidoController {
 
     @Autowired
-    private PedidosService pedidosService;
+    private PedidoService pedidosService;
 
     @GetMapping(path = "/list")
     public ResponseEntity<List<Pedido>> listPedidos() {
