@@ -1,98 +1,98 @@
 package com.heroku.ifeslp1backend.service;
 
-import com.heroku.ifeslp1backend.enumerator.EPedStatus;
-import com.heroku.ifeslp1backend.model.Comandas;
-import com.heroku.ifeslp1backend.model.Pedidos;
-import com.heroku.ifeslp1backend.repository.ComandasRepository;
-import com.heroku.ifeslp1backend.repository.PedidosRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import com.heroku.ifeslp1backend.enumerator.EPedStatus;
+import com.heroku.ifeslp1backend.model.Comanda;
+import com.heroku.ifeslp1backend.model.Pedido;
+import com.heroku.ifeslp1backend.repository.ComandasRepository;
+import com.heroku.ifeslp1backend.repository.PedidosRepository;
+
 @Service
 public class PedidosService {
 
-    @Autowired
-    private PedidosRepository pedidosRepository;
+	@Autowired
+	private PedidosRepository pedidosRepository;
 
-    @Autowired
-    private ComandasRepository comandasRepository;
+	@Autowired
+	private ComandasRepository comandasRepository;
 
-    @Transactional(rollbackFor = Exception.class)
-    public Pedidos insert(@Validated Pedidos pedidos) {
-        // Validação para criação de comandas
-        if (pedidos.getComCod() == null) {
-            Comandas novaComanda = new Comandas();
-            comandasRepository.save(novaComanda);
-            pedidos.setComCod(novaComanda.getComCod());
-            novaComanda.setComPedidos(Collections.singletonList(pedidos));
-        } else {
-            // Iteração de pedidos
-            Optional<Comandas> comandas = comandasRepository.findById(pedidos.getComCod());
-            List<Pedidos> listaPedidos = comandas.get().getComPedidos();
-            Iterator<Pedidos> pedidosIterator = listaPedidos.iterator();
-            List<Pedidos> listaPedidosIterada = new ArrayList<>();
-            pedidosRepository.save(pedidos);
-            listaPedidosIterada.add(pedidos);
-            while (pedidosIterator.hasNext()) {
-                Pedidos iterator = pedidosIterator.next();
-                listaPedidosIterada.add(iterator);
-            }
-            comandas.get().setComPedidos(listaPedidosIterada);
-        }
-        pedidos.setPedStatus(EPedStatus.ATIVO);
-        return pedidosRepository.save(pedidos);
-    }
+	@Transactional(rollbackFor = Exception.class)
+	public Pedido insert(@Validated Pedido pedidos) {
+		// Validação para criação de comandas
+		if (pedidos.getCodComanda() == null) {
+			Comanda novaComanda = new Comanda();
+			comandasRepository.save(novaComanda);
+			pedidos.setCodComanda(novaComanda.getCodComanda());
+			novaComanda.setListPedidos(Collections.singletonList(pedidos));
+		} else {
+			// Iteração de pedidos
+			Optional<Comanda> comandas = comandasRepository.findById(pedidos.getCodComanda());
+			List<Pedido> listaPedidos = comandas.get().getListPedidos();
+			Iterator<Pedido> pedidosIterator = listaPedidos.iterator();
+			List<Pedido> listaPedidosIterada = new ArrayList<>();
+			pedidosRepository.save(pedidos);
+			listaPedidosIterada.add(pedidos);
+			while (pedidosIterator.hasNext()) {
+				Pedido iterator = pedidosIterator.next();
+				listaPedidosIterada.add(iterator);
+			}
+			comandas.get().setListPedidos(listaPedidosIterada);
+		}
+		pedidos.setStatusPedidos(EPedStatus.ATIVO);
+		return pedidosRepository.save(pedidos);
+	}
 
-    @Transactional(rollbackFor = Exception.class)
-    public List<Pedidos> findList() {
-        //Iteração de todos os itens da lista
-        List<Pedidos> listaPedidos = pedidosRepository.findAll();
-        Iterator<Pedidos> pedidosIterator = listaPedidos.iterator();
-        List<Pedidos> listaPedidosIterada = new ArrayList<>();
-        while (pedidosIterator.hasNext()) {
-            Pedidos iterator = pedidosIterator.next();
-            listaPedidosIterada.add(iterator);
-        }
-        return listaPedidosIterada;
-    }
+	@Transactional(rollbackFor = Exception.class)
+	public List<Pedido> findList() {
+		// Iteração de todos os itens da lista
+		List<Pedido> listaPedidos = pedidosRepository.findAll();
+		Iterator<Pedido> pedidosIterator = listaPedidos.iterator();
+		List<Pedido> listaPedidosIterada = new ArrayList<>();
+		while (pedidosIterator.hasNext()) {
+			Pedido iterator = pedidosIterator.next();
+			listaPedidosIterada.add(iterator);
+		}
+		return listaPedidosIterada;
+	}
 
-    @Transactional(rollbackFor = Exception.class)
-    public Optional<Pedidos> findById(Long pedCod) {
-        return pedidosRepository.findById(pedCod);
-    }
+	@Transactional(rollbackFor = Exception.class)
+	public Optional<Pedido> findById(Long pedCod) {
+		return pedidosRepository.findById(pedCod);
+	}
 
-    @Transactional(rollbackFor = Exception.class)
-    public void updateCancelado(Long pedCod, @Validated Pedidos pedidos) {
-        //Procura pelo chave primaria, se existir ele faz o set pra cancelado
-        Optional<Pedidos> registro = pedidosRepository.findById(pedidos.getPedCod());
-        if (registro.isPresent()) {
-            Pedidos pedido = registro.get();
-            pedido.setPedStatus(EPedStatus.CANCELADO);
-            pedido.setPedIsCancelado(true);
-            this.pedidosRepository.save(pedido);
-        }
-    }
+	@Transactional(rollbackFor = Exception.class)
+	public void updateCancelado(Long pedCod, @Validated Pedido pedidos) {
+		// Procura pelo chave primaria, se existir ele faz o set pra cancelado
+		Optional<Pedido> registro = pedidosRepository.findById(pedidos.getCodPedido());
+		if (registro.isPresent()) {
+			Pedido pedido = registro.get();
+			pedido.setStatusPedidos(EPedStatus.CANCELADO);
+			this.pedidosRepository.save(pedido);
+		}
+	}
 
-    @Transactional(rollbackFor = Exception.class)
-    public void updateFinalizado(Long pedCod, @Validated Pedidos pedidos) {
-        //Procura pelo chave primaria, se existir ele faz o set pra finalizado
-        Optional<Pedidos> registro = pedidosRepository.findById(pedidos.getPedCod());
-        if (registro.isPresent()) {
-            Pedidos pedido = registro.get();
-            //Se o registro estiver cancelado não faz nada
-            if (pedido.getPedStatus().equals(EPedStatus.CANCELADO)) {
-            } else {
-                pedido.setPedStatus(EPedStatus.FINALIZADO);
-                this.pedidosRepository.save(pedido);
-            }
-        }
-    }
+	@Transactional(rollbackFor = Exception.class)
+	public void updateFinalizado(Long pedCod, @Validated Pedido pedidos) {
+		// Procura pelo chave primaria, se existir ele faz o set pra finalizado
+		Optional<Pedido> registro = pedidosRepository.findById(pedidos.getCodPedido());
+		if (registro.isPresent()) {
+			Pedido pedido = registro.get();
+			// Se o registro estiver cancelado não faz nada
+			if (pedido.getStatusPedidos().equals(EPedStatus.CANCELADO)) {
+			} else {
+				pedido.setStatusPedidos(EPedStatus.FINALIZADO);
+				this.pedidosRepository.save(pedido);
+			}
+		}
+	}
 }

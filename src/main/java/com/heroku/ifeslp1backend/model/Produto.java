@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "GER_PRODUTOS")
-public class Produtos {
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class Produtos {
     @Column(name = "PRO_VALOR")
     private double proValor;
 
-    public Produtos() {
+    public Produto() {
     }
 
-    public Produtos(Long proCod, String proDesNome, String proIngrediente, double proValor) {
+    public Produto(Long proCod, String proDesNome, String proIngrediente, double proValor) {
         this.proCod = proCod;
         this.proDesNome = proDesNome;
         this.proIngrediente = proIngrediente;
