@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.heroku.ifeslp1backend.enumerator.EComStatus;
-import com.heroku.ifeslp1backend.service.ComandasService;
+import com.heroku.ifeslp1backend.service.ComandaService;
 
 @Entity
 @Table(name = "GER_COMANDA")

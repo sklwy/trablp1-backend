@@ -10,23 +10,23 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import com.heroku.ifeslp1backend.model.Comanda;
-import com.heroku.ifeslp1backend.repository.ComandasRepository;
+import com.heroku.ifeslp1backend.repository.ComandaRepository;
 
 @Service
-public class ComandasService {
+public class ComandaService {
 
 	@Autowired
-	private ComandasRepository comandasRepository;
+	private ComandaRepository comandaRepository;
 
 	@Transactional(rollbackFor = Exception.class)
 	public Comanda insert(@Validated Comanda comandas) {
-		return comandasRepository.save(comandas);
+		return comandaRepository.save(comandas);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public List<Comanda> findList() {
 		// Iteração de comandas
-		List<Comanda> listaComandas = comandasRepository.findAll();
+		List<Comanda> listaComandas = comandaRepository.findAll();
 		Iterator<Comanda> comandasIterator = listaComandas.iterator();
 		List<Comanda> listaMesasIterada = new ArrayList<>();
 		while (comandasIterator.hasNext()) {

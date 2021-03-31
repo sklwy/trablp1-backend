@@ -1,7 +1,7 @@
 package com.heroku.ifeslp1backend.service;
 
 import com.heroku.ifeslp1backend.model.Produto;
-import com.heroku.ifeslp1backend.repository.ProdutosRepository;
+import com.heroku.ifeslp1backend.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +14,10 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class ProdutosService {
+public class ProdutoService {
 
     @Autowired
-    private ProdutosRepository produtosRepository;
+    private ProdutoRepository produtosRepository;
 
     @Transactional(rollbackFor = Exception.class)
     public Produto insert(@Validated Produto produtos) {

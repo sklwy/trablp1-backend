@@ -1,7 +1,7 @@
 package com.heroku.ifeslp1backend.controller;
 
 import com.heroku.ifeslp1backend.model.Comanda;
-import com.heroku.ifeslp1backend.service.ComandasService;
+import com.heroku.ifeslp1backend.service.ComandaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +17,10 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/comandas")
-public class ComandasController {
+public class ComandaController {
 
     @Autowired
-    private ComandasService comandasService;
+    private ComandaService comandasService;
 
     @GetMapping(path = "/list")
     public ResponseEntity<List<Comanda>> listComandas() {

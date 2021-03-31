@@ -96,4 +96,29 @@ public class Pedido {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((produtos == null) ? 0 : produtos.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pedido other = (Pedido) obj;
+		if (produtos == null) {
+			if (other.produtos != null)
+				return false;
+		} else if (!produtos.equals(other.produtos))
+			return false;
+		return true;
+	}
 }
