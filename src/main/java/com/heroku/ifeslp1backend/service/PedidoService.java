@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import com.heroku.ifeslp1backend.enumerator.EPedStatus;
 import com.heroku.ifeslp1backend.model.Comanda;
 import com.heroku.ifeslp1backend.model.Pedido;
+import com.heroku.ifeslp1backend.model.Produto;
 import com.heroku.ifeslp1backend.repository.ComandaRepository;
 import com.heroku.ifeslp1backend.repository.PedidoRepository;
 
@@ -47,6 +48,15 @@ public class PedidoService {
 				listaPedidosIterada.add(iterator);
 			}
 			comandas.get().setListPedidos(listaPedidosIterada);
+			double valor = 0;
+			for (int i = 0; i < listaPedidosIterada.size(); i++) {
+				List<Produto> produtos = (listaPedidosIterada.get(i).getProdutos());
+				for (int k = 0; k < produtos.size(); k++) {
+					valor += produtos.get(k).getProValor();
+				}
+				produtos.get(i).setProValor(valor);
+			}
+
 		}
 		pedidos.setStatusPedidos(EPedStatus.ATIVO);
 		return pedidoRepository.save(pedidos);

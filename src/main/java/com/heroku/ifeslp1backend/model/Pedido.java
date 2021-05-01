@@ -99,7 +99,7 @@ public class Pedido {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
+			
 	@Override
 	public int hashCode() {
 		final int prime = 31;
