@@ -38,6 +38,9 @@ public class Pedido {
 
 	@Column(name = "OBSERVACAO")
 	private String observacao;
+	
+	public Pedido() {
+	}
 
 	public Pedido(Long codPedido, Long codComanda, List<Produto> produtos, EPedStatus statusPedidos, double valorTotal,
 			String observacao) {

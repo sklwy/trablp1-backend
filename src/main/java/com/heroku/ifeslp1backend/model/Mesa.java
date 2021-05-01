@@ -18,6 +18,9 @@ public class Mesa {
 
 	@Column(name = "NOME", length = 5, nullable = false)
 	private String nome;
+	
+	public Mesa() {
+	}
 
 	public Mesa(Long codMesa, String nome) {
 		this.codMesa = codMesa;
